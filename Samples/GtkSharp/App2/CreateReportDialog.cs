@@ -1,6 +1,7 @@
 using System;
 using FormGenerator.Models;
 using Gtk;
+using System.Linq;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace App2
@@ -10,6 +11,8 @@ namespace App2
     { 
         [TreeNodeValue(Column = 0)]
         public string Name { get; set; }
+
+        public bool Fake { get; set; }
     }
 
     [TreeNode(ListOnly = true)]
@@ -26,6 +29,8 @@ namespace App2
 
         [TreeNodeValue(Column = 3)]
         public string ControlDate { get; set; }
+
+        public bool Fake { get; set; }
     }
 
     class CreateReportDialog : Dialog
@@ -34,6 +39,7 @@ namespace App2
         [UI] private Entry entryDate = null;
         [UI] private Entry entrySecretary = null;
         [UI] private Button buttonAddParticipant = null;
+        [UI] private Button buttonAddDecision = null;
         [UI] private Alignment alignmentParticiapnts = null;
         [UI] private Alignment alignmentDecisions = null;
 
@@ -54,12 +60,13 @@ namespace App2
             Response += Dialog_Response;
 
             buttonAddParticipant.Clicked += ButtonAddParticipant_Clicked;
+            buttonAddDecision.Clicked += ButtonAddDecision_Clicked;
 
             nodeStoreParticiapnts = new NodeStore(typeof(ParticipantModel));
-            //nodeStoreParticiapnts.AddNode(new ParticipantModel());
+            nodeStoreParticiapnts.AddNode(new ParticipantModel() { Fake = true });
 
             nodeStoreDecisions = new NodeStore(typeof(DecisionModel));
-            nodeStoreDecisions.AddNode(new DecisionModel());
+            nodeStoreDecisions.AddNode(new DecisionModel() { Fake = true });
 
             nodeViewParticiapnts = new NodeView(nodeStoreParticiapnts);
             nodeViewParticiapnts.AppendColumn("Name", new CellRendererText(), "text", 0);
@@ -75,8 +82,27 @@ namespace App2
             nodeViewDecisions.ShowAll();
         }
 
+        private void ButtonAddDecision_Clicked(object sender, EventArgs e)
+        {
+            var models = nodeStoreDecisions.OfType<DecisionModel>();
+
+            if (models.Count() == 1 && models.First().Fake == true)
+                nodeStoreDecisions.Clear();
+            nodeStoreDecisions.AddNode(new DecisionModel
+            {
+                Problem = "Problem",
+                Solution = "Solution",
+                Responsible = "Responsible",
+                ControlDate = DateTime.Now.ToString()
+            }); ;
+        }
+
         private void ButtonAddParticipant_Clicked(object sender, EventArgs e)
         {
+            var models = nodeStoreParticiapnts.OfType<ParticipantModel>();
+
+            if (models.Count() == 1 && models.First().Fake == true)
+                nodeStoreParticiapnts.Clear();
             nodeStoreParticiapnts.AddNode(new ParticipantModel { Name = "Participant" });
         }
 
@@ -98,7 +124,21 @@ namespace App2
             {
                 Subject = entrySubject.Text,
                 Date = DateTime.Parse(entryDate.Text),
-                Secretary = entrySecretary.Text
+                Secretary = entrySecretary.Text,
+                Participants = nodeStoreParticiapnts
+                    .OfType<ParticipantModel>()
+                    .Select(m => new Participant { Name = m.Name })
+                    .ToList(),
+                Decisions = nodeStoreDecisions
+                    .OfType<DecisionModel>()
+                    .Select(m => new Decision 
+                    {  
+                        Solution = m.Solution,
+                        Problem = m.Problem,
+                        Responsible = m.Responsible,
+                        ControlDate = DateTime.Parse(m.ControlDate)
+                    })
+                    .ToList()
             };
         }
     }
