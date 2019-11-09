@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Dialog
+  xmlns="http://schema.picoe.ca/eto.forms" 
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  Title="My Eto Dialog"
+  ClientSize="430, 380"
+  Padding="10">
+
+  <StackLayout>
+    <TableLayout Spacing="5, 10" Width="400">
+      <TableRow>
+        <Label Text="Subject" TextAlignment="Right"/>
+        <TextBox/>
+      </TableRow>
+      <TableRow>
+        <Label Text="Date" TextAlignment="Right"/>
+        <DateTimePicker />
+      </TableRow>
+      <TableRow>
+        <Label Text="Secretary" TextAlignment="Right"/>
+        <TextBox />
+      </TableRow>
+      <TableRow>
+        <Label Text="Participants" TextAlignment="Right"/>
+        <GridView>
+          <GridColumn HeaderText="Name"/>
+        </GridView>
+      </TableRow>
+      <TableRow>
+        <Label Text="Decisions" TextAlignment="Right"/>
+        <GridView>
+          <GridColumn HeaderText="Problem"/>
+          <GridColumn HeaderText="Solution"/>
+          <GridColumn HeaderText="Responsible"/>
+          <GridColumn HeaderText="ControlDate"/>
+        </GridView>
+      </TableRow>
+    </TableLayout>
+    <Panel BackgroundColor="" Height="10"/>
+    <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Right" Spacing="10">
+      <Panel Width="210"/>
+      <Button>Ok</Button>
+      <Button>Cancel</Button>
+    </StackLayout>
+  </StackLayout>
+
+ 
+</Dialog>

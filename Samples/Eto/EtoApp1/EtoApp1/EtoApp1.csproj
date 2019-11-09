@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <RootNamespace>EtoApp1</RootNamespace>
+    <PackageVersion>1.0</PackageVersion>
+    <Title>EtoApp1</Title>
+    <Copyright>Copyright © 2019</Copyright>
+    <Description>Description of EtoApp1</Description>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.4.1" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.4.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="ReportDialog.xeto.cs">
+      <DependentUpon>ReportDialog.xeto</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+</Project>
