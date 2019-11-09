@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Eto.Forms;
 using Eto.Drawing;
 using Eto.Serialization.Xaml;
+using FormGenerator.Models;
 
 namespace EtoApp1
 { 
     public class MainForm : Form
-    { 
+    {
+        private MeetingNotes meetingNotes = new MeetingNotes();
         public MainForm()
         {
             XamlReader.Load(this);
@@ -15,7 +17,15 @@ namespace EtoApp1
 
         protected void CreateNew(object sender, EventArgs e)
         {
-            var dialog = new ReportDialog();
+            meetingNotes = new MeetingNotes
+            {
+                Subject = "Sub",
+                Date = DateTime.Today,
+                Secretary = "Sec",
+                Participants = new List<Participant> { new Participant { Name = "P1"}  },
+                Decisions = new List<Decision> { new Decision { Problem = "s1"} }
+            };
+            var dialog = new ReportDialog(meetingNotes);
             dialog.ShowModal();
         }
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EtoApp1</RootNamespace>
     <PackageVersion>1.0</PackageVersion>
     <Title>EtoApp1</Title>
@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Eto.Forms" Version="2.4.1" />
     <PackageReference Include="Eto.Serialization.Xaml" Version="2.4.1" />
+    <PackageReference Include="formgenerator" Version="1.0.0" />
   </ItemGroup>
   
   <ItemGroup>
