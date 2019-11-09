@@ -5,29 +5,33 @@ using Eto.Drawing;
 using Eto.Serialization.Xaml;
 
 namespace EtoApp1
-{	
-	public class MainForm : Form
-	{	
-		public MainForm()
-		{
-			XamlReader.Load(this);
-		}
+{ 
+    public class MainForm : Form
+    { 
+        public MainForm()
+        {
+            XamlReader.Load(this);
+        }
 
-		protected void HandleClickMe(object sender, EventArgs e)
-		{
-			//MessageBox.Show("I was clicked!");
-			var dialog = new ReportDialog();
-			dialog.ShowModal();
-		}
+        protected void CreateNew(object sender, EventArgs e)
+        {
+            var dialog = new ReportDialog();
+            dialog.ShowModal();
+        }
 
-		protected void HandleAbout(object sender, EventArgs e)
-		{
-			new AboutDialog().ShowDialog(this);
-		}
+        protected void Generate(object sender, EventArgs e)
+        {
+            MessageBox.Show("Generated!");
+        }
 
-		protected void HandleQuit(object sender, EventArgs e)
-		{
-			Application.Instance.Quit();
-		}
-	}
+        protected void HandleAbout(object sender, EventArgs e)
+        {
+            new AboutDialog().ShowDialog(this);
+        }
+
+        protected void HandleQuit(object sender, EventArgs e)
+        {
+            Application.Instance.Quit();
+        }
+    }
 }
