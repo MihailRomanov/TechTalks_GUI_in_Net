@@ -9,7 +9,7 @@ namespace EtoApp1.Desktop
 		[STAThread]
 		static void Main(string[] args)
 		{
-			new Application(Eto.Platforms.Gtk).Run(new MainForm());
+			new Application(Eto.Platforms.Wpf).Run(new MainForm());
 		}
 	}
 }

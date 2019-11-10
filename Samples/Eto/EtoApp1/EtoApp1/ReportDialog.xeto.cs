@@ -40,5 +40,10 @@ namespace EtoApp1
             });
             UpdateBindings(BindingUpdateMode.Destination);
         }
+
+        public void PressOk(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

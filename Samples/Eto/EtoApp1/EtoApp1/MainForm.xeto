@@ -10,7 +10,7 @@
     <MenuBar>
       <ButtonMenuItem Text="Файл">
         <ButtonMenuItem Text="Создать" Click="CreateNew" />
-        <ButtonMenuItem Text="Открыть" Click="CreateNew" />
+        <ButtonMenuItem Text="Открыть" Click="Open" />
         <SeparatorMenuItem />
         <ButtonMenuItem Text="Выйти" Click="HandleQuit" />
       </ButtonMenuItem>

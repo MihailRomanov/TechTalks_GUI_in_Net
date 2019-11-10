@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Dialog
-  xmlns="http://schema.picoe.ca/eto.forms" 
+  xmlns="http://schema.picoe.ca/eto.forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   Title="My Eto Dialog"
   ClientSize="430, 500"
-  Padding="10">
+  Padding="10" >
 
   <StackLayout>
     <TableLayout Spacing="5, 10" Width="400">
       <TableRow>
         <Label Text="Subject" TextAlignment="Right"/>
-        <TextBox Text="{Binding Path='Subject'}"></TextBox>
+        <TextBox Text="{Binding Path='Subject'}" />
       </TableRow>
       <TableRow>
         <Label Text="Date" TextAlignment="Right"/>
@@ -23,7 +23,7 @@
       <TableRow>
         <Label Text="Participants" TextAlignment="Right"/>
         <StackLayout>
-        <Button Click="AddParticipant">Add participant</Button>
+          <Button Click="AddParticipant">Add participant</Button>
         </StackLayout>
       </TableRow>
       <TableRow>
@@ -45,7 +45,7 @@
         <GridView DataStore="{Binding Path='Decisions'}" ID="gvDecisions" Height="150">
           <GridColumn HeaderText="Problem" Editable="True">
             <TextBoxCell Binding="{Binding Path='Problem'}"></TextBoxCell>
-           </GridColumn>
+          </GridColumn>
           <GridColumn HeaderText="Solution" Editable="True">
             <TextBoxCell Binding="{Binding Path='Solution'}" />
           </GridColumn>
@@ -61,10 +61,10 @@
     <Panel BackgroundColor="" Height="10"/>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Right" Spacing="10">
       <Panel Width="210"/>
-      <Button>Ok</Button>
+      <Button Click="PressOk">Ok</Button>
       <Button>Cancel</Button>
     </StackLayout>
   </StackLayout>
 
- 
+
 </Dialog>

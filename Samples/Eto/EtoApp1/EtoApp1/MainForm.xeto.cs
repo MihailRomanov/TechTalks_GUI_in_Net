@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using Eto.Forms;
 using Eto.Drawing;
 using Eto.Serialization.Xaml;
+using FormGenerator;
 using FormGenerator.Models;
 
 namespace EtoApp1
@@ -29,9 +32,38 @@ namespace EtoApp1
             dialog.ShowModal();
         }
 
+        protected void Open(object sender, EventArgs e)
+        {
+            var dialog = new ReportDialog(meetingNotes);
+            dialog.ShowModal();
+        }
+
         protected void Generate(object sender, EventArgs e)
         {
-            MessageBox.Show("Generated!");
+            if (meetingNotes == null)
+                return;
+
+            var saveFileDialog = new SaveFileDialog();
+
+            if (saveFileDialog.ShowDialog(this) == DialogResult.Cancel)
+                return;
+
+            var filename = saveFileDialog.FileName;
+
+            var generator = new WordFormReportGenerator();
+            var stream = generator.GenerateDocument("Template1", meetingNotes);
+
+            var fileStream = new FileStream(filename, FileMode.Create);
+            stream.CopyTo(fileStream);
+            fileStream.Close();
+
+            new Process
+            {
+                StartInfo = new ProcessStartInfo(filename)
+                {
+                    UseShellExecute = true
+                }
+            }.Start();
         }
 
         protected void HandleAbout(object sender, EventArgs e)
