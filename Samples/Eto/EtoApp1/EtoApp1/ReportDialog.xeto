@@ -10,15 +10,15 @@
     <TableLayout Spacing="5, 10" Width="400">
       <TableRow>
         <Label Text="Subject" TextAlignment="Right"/>
-        <TextBox ID="textSubject"  />
+        <TextBox Text="{Binding Path='Subject'}"></TextBox>
       </TableRow>
       <TableRow>
         <Label Text="Date" TextAlignment="Right"/>
-        <DateTimePicker ID="dtDate" />
+        <DateTimePicker Value="{Binding Path='Date'}"/>
       </TableRow>
       <TableRow>
         <Label Text="Secretary" TextAlignment="Right"/>
-        <TextBox ID ="textSecretary" />
+        <TextBox Text="{Binding Path='Secretary'}"/>
       </TableRow>
       <TableRow>
         <Label Text="Participants" TextAlignment="Right"/>
@@ -28,8 +28,10 @@
       </TableRow>
       <TableRow>
         <Label></Label>
-        <GridView ID="gvParticipants">
-          <GridColumn HeaderText="Name" ID="gcParticipantName"/>
+        <GridView ID="gvParticipants" DataStore="{Binding Path='Participants'}" Height="100">
+          <GridColumn HeaderText="Name" Editable="True">
+            <TextBoxCell Binding="{Binding Path='Name'}" />
+          </GridColumn>
         </GridView>
       </TableRow>
       <TableRow>
@@ -40,13 +42,19 @@
       </TableRow>
       <TableRow>
         <Label></Label>
-        <GridView DataStore="{Binding Path='Decisions'}" ID="gvDecisions">
-          <GridColumn HeaderText="Problem">
+        <GridView DataStore="{Binding Path='Decisions'}" ID="gvDecisions" Height="150">
+          <GridColumn HeaderText="Problem" Editable="True">
             <TextBoxCell Binding="{Binding Path='Problem'}"></TextBoxCell>
            </GridColumn>
-          <GridColumn HeaderText="Solution"/>
-          <GridColumn HeaderText="Responsible"/>
-          <GridColumn HeaderText="ControlDate"/>
+          <GridColumn HeaderText="Solution" Editable="True">
+            <TextBoxCell Binding="{Binding Path='Solution'}" />
+          </GridColumn>
+          <GridColumn HeaderText="Responsible" Editable="True">
+            <TextBoxCell Binding="{Binding Path='Responsible'}" />
+          </GridColumn>
+          <GridColumn HeaderText="ControlDate" Editable="True">
+            <TextBoxCell Binding="{Binding Path='ControlDate'}" />
+          </GridColumn>
         </GridView>
       </TableRow>
     </TableLayout>
