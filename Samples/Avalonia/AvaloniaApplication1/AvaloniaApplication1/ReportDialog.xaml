@@ -1,0 +1,49 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        Width="500" Height="450"
+        x:Class="AvaloniaApplication1.ReportDialog"
+        Title="ReportDialog">
+  <DockPanel LastChildFill="True">
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+      <Button Command="{Binding Path=OK}">Ok</Button>
+      <Button Command="{Binding Path=Cancel}" Margin="10, 0, 0, 0">Cancel</Button>
+    </StackPanel>
+    <Grid Margin="20" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+      <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right">Subject</TextBlock>
+      <TextBox Grid.Column="1" Text="{Binding Path='Subject'}" Grid.Row="0" Margin="5, 0, 0, 5"/>
+      <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right">Date</TextBlock>
+      <DatePicker Grid.Column="1" SelectedDate="{Binding Path='Date'}" Grid.Row="1" Margin="5, 0, 0, 5"/>
+      <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right">Secretary</TextBlock>
+      <TextBox Grid.Column="1" Text="{Binding Path='Secretary'}" Grid.Row="2" Margin="5, 0, 0, 5"/>
+      <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right">Participants</TextBlock>
+      <StackPanel Grid.Column="1" Grid.Row="3" Margin="5, 0, 0, 5">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+          <Button Command="{Binding Path=AddParticipant}">Add participant</Button>
+        </StackPanel>
+        <DataGrid Items="{Binding Path='Participants'}" Height="100" Margin="0, 5, 0, 0">
+          <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Path='Name'}" Header="Name" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </StackPanel>
+      <TextBlock Grid.Column="0" Grid.Row="4" TextAlignment="Right">Decisions</TextBlock>
+      <StackPanel Grid.Column="1" Grid.Row="4" Margin="5, 0, 0, 5">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+          <Button Command="{Binding Path=AddDecision}">Add decision</Button>
+        </StackPanel>
+        <DataGrid Items="{Binding Path='Decisions'}" Height="100" Margin="0, 5, 0, 0">
+          <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Path='Problem'}" Header="Problem" />
+            <DataGridTextColumn Binding="{Binding Path='Solution'}" Header="Solution" />
+            <DataGridTextColumn Binding="{Binding Path='Responsible'}" Header="Responsible" />
+            <DataGridTextColumn Binding="{Binding Path='ControlDate'}" Header="Control Date" />
+          </DataGrid.Columns>
+        </DataGrid>
+
+      </StackPanel>
+    </Grid>
+  </DockPanel>
+</Window>
