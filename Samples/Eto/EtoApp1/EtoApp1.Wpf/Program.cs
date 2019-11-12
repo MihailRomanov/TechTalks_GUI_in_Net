@@ -1,15 +1,15 @@
 ﻿using System;
+using Eto;
 using Eto.Forms;
-using Eto.Drawing;
 
-namespace EtoApp1.Desktop
+namespace EtoApp1.Wpf
 {
 	class Program
 	{
 		[STAThread]
 		static void Main(string[] args)
 		{
-			new Application(Eto.Platforms.Wpf).Run(new MainForm());
+			new Application(Platforms.Wpf).Run(new MainForm());
 		}
 	}
 }
