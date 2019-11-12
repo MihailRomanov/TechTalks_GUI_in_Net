@@ -19,8 +19,7 @@ namespace App3
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseElectron(args)
-                    ;
+                        .UseElectron(args);
                 });
     }
 }

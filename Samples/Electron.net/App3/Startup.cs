@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using App3.Storage;
 using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ namespace App3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddSingleton<MeetingNotesStorage>();
         }
 
         
@@ -20,7 +22,6 @@ namespace App3
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
             }
             app.UseStaticFiles();
 

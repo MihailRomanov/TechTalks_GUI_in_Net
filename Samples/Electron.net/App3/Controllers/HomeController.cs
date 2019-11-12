@@ -1,13 +1,26 @@
-﻿using ElectronNET.API;
+﻿using App3.Storage;
+using ElectronNET.API;
 using ElectronNET.API.Entities;
+using FormGenerator;
+using FormGenerator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace App3.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly MeetingNotesStorage meetingNotesStorage;
+
+        public HomeController(MeetingNotesStorage meetingNotesStorage)
+        {
+            this.meetingNotesStorage = meetingNotesStorage;
+        }
+
         public IActionResult Index()
         {
             var Uri = new UriBuilder(Request.Scheme, Request.Host.Host, Request.Host.Port.Value, "index.html").Uri;
@@ -41,11 +54,7 @@ namespace App3.Controllers
                 new MenuItem { Label = "Генерировать",
                     Click = async () => 
                     {
-                        var main = Electron.WindowManager.BrowserWindows.First();
-                        var file = await Electron.Dialog.ShowSaveDialogAsync(
-                            main, new SaveDialogOptions { Title = "Save ..." });
-
-
+                        await Generate();
                     }
                 },
                 new MenuItem { Label = "Справка" }
@@ -59,7 +68,42 @@ namespace App3.Controllers
 
         public IActionResult ReportDialog()
         {
-            return View();
+            var saveUrl = Url.Action("Save", "Home", null, Request.Scheme);
+            return View("ReportDialog", saveUrl);
+        }
+
+        [HttpPost]
+        public IActionResult Save([FromBody]MeetingNotes meetingNotes)
+        {
+            meetingNotesStorage.MeetingNotes = meetingNotes;
+            Electron.WindowManager.BrowserWindows.Last().Close();
+            return Ok();
+        }
+
+        private async Task Generate()
+        {
+            var main = Electron.WindowManager.BrowserWindows.First();
+            var filename = await Electron.Dialog.ShowSaveDialogAsync(
+                main, new SaveDialogOptions { Title = "Save ..." });
+
+            if (string.IsNullOrWhiteSpace(filename))
+                return;
+
+            var generator = new WordFormReportGenerator();
+            var stream = generator.GenerateDocument("Template1", meetingNotesStorage.MeetingNotes);
+
+            var fileStream = new FileStream(filename, FileMode.Create);
+            stream.CopyTo(fileStream);
+            fileStream.Close();
+
+            new Process
+            {
+                StartInfo = new ProcessStartInfo(filename)
+                {
+                    UseShellExecute = true
+                }
+            }.Start();
+
         }
     }
 }

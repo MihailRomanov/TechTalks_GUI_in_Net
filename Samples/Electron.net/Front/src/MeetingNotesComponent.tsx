@@ -7,18 +7,21 @@ export interface IMeetingNotesState {
     MeetingDate?: Date,
     Secretary?: string,
     Participants: IParticipant[],
-    Decisions: IDecision[]
+    Decisions: IDecision[],
+    saveUrl: string
 }
 
 export interface IMeetingNotesProps {
-    meetingNotes: IMeetingNotes;
+    meetingNotes: IMeetingNotes,
+    saveUrl: string
 }
 
 export class MeetingNotes extends Component<IMeetingNotesProps, IMeetingNotesState> {
     constructor(props: IMeetingNotesProps) {
         super(props);
         const { Subject, Date, Decisions = [], Participants = [], Secretary } = this.props.meetingNotes;
-        this.state = { Subject, MeetingDate: Date, Decisions, Participants, Secretary };
+        const saveUrl = this.props.saveUrl;
+        this.state = { Subject, MeetingDate: Date, Decisions, Participants, Secretary, saveUrl };
     }
 
     render(): ReactNode {
@@ -65,7 +68,14 @@ export class MeetingNotes extends Component<IMeetingNotesProps, IMeetingNotesSta
             Participants: this.state.Participants
         };
 
+        const saveUrl = this.state.saveUrl;
         console.log(meetingNotes);
+        
+        fetch(saveUrl, {
+            body: JSON.stringify(meetingNotes),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'}
+        })
     }
 
     _clearForm(): void {

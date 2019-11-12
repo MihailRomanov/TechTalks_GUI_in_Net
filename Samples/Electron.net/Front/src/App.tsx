@@ -4,14 +4,22 @@ import { MeetingNotes } from './MeetingNotesComponent';
 
 initializeIcons();
 
+export interface IAppProps {
+  saveUrl: string
+}
 
-export class App extends Component {
-  constructor(props: Readonly<{}>) {
+export interface IAppState {
+  saveUrl: string
+}
+
+export class App extends Component<IAppProps, IAppState> {
+  constructor(props: IAppProps) {
     super(props);
-
+    const { saveUrl } = props;
+    this.state = {saveUrl};
   }
 
   render(): ReactNode {
-    return (<MeetingNotes meetingNotes={{}}></MeetingNotes>);
+    return (<MeetingNotes saveUrl={this.state.saveUrl} meetingNotes={{}}></MeetingNotes>);
   }
 };
