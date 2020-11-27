@@ -3,51 +3,25 @@ using FormGenerator.Models;
 using Gtk;
 using System.Linq;
 using UI = Gtk.Builder.ObjectAttribute;
+using Common;
 
 namespace App2
 {
-    [TreeNode(ListOnly = true)]
-    public class ParticipantModel : TreeNode
-    { 
-        [TreeNodeValue(Column = 0)]
-        public string Name { get; set; }
-
-        public bool Fake { get; set; }
-    }
-
-    [TreeNode(ListOnly = true)]
-    public class DecisionModel : TreeNode
-    {
-        [TreeNodeValue(Column = 0)]
-        public string Problem { get; set; }
-
-        [TreeNodeValue(Column = 1)]
-        public string Solution { get; set; }
-
-        [TreeNodeValue(Column = 2)]
-        public string Responsible { get; set; }
-
-        [TreeNodeValue(Column = 3)]
-        public string ControlDate { get; set; }
-
-        public bool Fake { get; set; }
-    }
-
     class CreateReportDialog : Dialog
     {
-        [UI] private Entry entrySubject = null;
-        [UI] private Entry entryDate = null;
-        [UI] private Entry entrySecretary = null;
-        [UI] private Button buttonAddParticipant = null;
-        [UI] private Button buttonAddDecision = null;
-        [UI] private Alignment alignmentParticiapnts = null;
-        [UI] private Alignment alignmentDecisions = null;
+        [UI] private readonly Entry entrySubject = null;
+        [UI] private readonly Entry entryDate = null;
+        [UI] private readonly Entry entrySecretary = null;
+        [UI] private readonly Button buttonAddParticipant = null;
+        [UI] private readonly Button buttonAddDecision = null;
+        [UI] private readonly Alignment alignmentParticiapnts = null;
+        [UI] private readonly Alignment alignmentDecisions = null;
 
-        private NodeView nodeViewParticiapnts = null;
-        private NodeStore nodeStoreParticiapnts = null;
+        private readonly NodeView nodeViewParticiapnts = null;
+        private readonly NodeStore nodeStoreParticiapnts = null;
 
-        private NodeView nodeViewDecisions = null;
-        private NodeStore nodeStoreDecisions = null;
+        private readonly NodeView nodeViewDecisions = null;
+        private readonly NodeStore nodeStoreDecisions = null;
 
 
         public CreateReportDialog() : this(new Builder("CreateReportDialog.glade")) { }
@@ -127,17 +101,11 @@ namespace App2
                 Secretary = entrySecretary.Text,
                 Participants = nodeStoreParticiapnts
                     .OfType<ParticipantModel>()
-                    .Select(m => new Participant { Name = m.Name })
+                    .Select(m => m.ToParticipant())
                     .ToList(),
                 Decisions = nodeStoreDecisions
                     .OfType<DecisionModel>()
-                    .Select(m => new Decision 
-                    {  
-                        Solution = m.Solution,
-                        Problem = m.Problem,
-                        Responsible = m.Responsible,
-                        ControlDate = DateTime.Parse(m.ControlDate)
-                    })
+                    .Select(m => m.ToDecision())
                     .ToList()
             };
         }

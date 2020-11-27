@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using Common;
 using FormGenerator;
 using FormGenerator.Models;
 using Gtk;
@@ -10,8 +11,6 @@ namespace App2
 {
     class MainWindow : Window
     {
-        [UI] TextView textviewCurrent = null;
-
         MeetingNotes meetingNotes = null;
 
         public MainWindow() : this(new Builder("MainWindow.glade")) { }
@@ -20,7 +19,7 @@ namespace App2
         {
             builder.Autoconnect(this);
             DeleteEvent += Window_DeleteEvent;
-           
+
          }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)
@@ -42,7 +41,6 @@ namespace App2
             if (result == (int)ResponseType.Ok)
             {
                 meetingNotes = dialog.ToMeetingNotes();
-                textviewCurrent.Buffer.Text = meetingNotes.Subject + " " + meetingNotes.Secretary;
             }
         }
 
@@ -55,7 +53,6 @@ namespace App2
             if (result == (int)ResponseType.Ok)
             {
                 meetingNotes = dialog.ToMeetingNotes();
-                textviewCurrent.Buffer.Text = meetingNotes.Subject + " " + meetingNotes.Secretary;
             }
         }
 
@@ -73,25 +70,10 @@ namespace App2
 
             if (dialogResult != (int)ResponseType.Ok)
                 return;
-                        
+
             var filename = saveFileDialog.Filename;
 
-            Debug.Print(filename);
-
-            var generator = new WordFormReportGenerator();
-            var stream = generator.GenerateDocument("Template1", meetingNotes);
-
-            var fileStream = new FileStream(filename, FileMode.Create);
-            stream.CopyTo(fileStream);
-            fileStream.Close();
-
-            new Process
-            {
-                StartInfo = new ProcessStartInfo(filename)
-                {
-                    UseShellExecute = true
-                }
-            }.Start();
+            GenerationHelper.GenerateAndOpen(filename, meetingNotes);
         }
     }
 

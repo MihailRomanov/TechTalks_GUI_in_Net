@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication1", "AvaloniaApplication1\AvaloniaApplication1.csproj", "{F3B3EAFB-593B-4F8D-8E34-E65D41B2C4D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaApplication1", "AvaloniaApplication1\AvaloniaApplication1.csproj", "{F3B3EAFB-593B-4F8D-8E34-E65D41B2C4D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "formgenerator", "..\..\formgenerator\formgenerator\formgenerator.csproj", "{14E61771-B0D6-4C20-A2B9-F5E521714281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F3B3EAFB-593B-4F8D-8E34-E65D41B2C4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B3EAFB-593B-4F8D-8E34-E65D41B2C4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B3EAFB-593B-4F8D-8E34-E65D41B2C4D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E61771-B0D6-4C20-A2B9-F5E521714281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E61771-B0D6-4C20-A2B9-F5E521714281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E61771-B0D6-4C20-A2B9-F5E521714281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E61771-B0D6-4C20-A2B9-F5E521714281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

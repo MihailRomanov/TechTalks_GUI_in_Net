@@ -10,10 +10,13 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Eto.Forms" Version="2.4.1" />
-    <PackageReference Include="Eto.Serialization.Xaml" Version="2.4.1" />
-    <PackageReference Include="formgenerator" Version="1.0.0" />
-    <PackageReference Include="Portable.Xaml" Version="0.24.0" />
+    <PackageReference Include="Eto.Forms" Version="2.5.7" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.5.7" />
+    <PackageReference Include="Portable.Xaml" Version="0.26.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\formgenerator\formgenerator\formgenerator.csproj" />
   </ItemGroup>
   
   <ItemGroup>

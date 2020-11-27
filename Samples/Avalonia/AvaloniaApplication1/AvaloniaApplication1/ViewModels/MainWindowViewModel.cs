@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Diagnostics.ViewModels;
 using FormGenerator;
 using FormGenerator.Models;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AvaloniaApplication1.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ReactiveObject
     {
         public MeetingNotes meetingNotes = new MeetingNotes();
         private readonly MainWindow mainWindow;
@@ -57,7 +57,7 @@ namespace AvaloniaApplication1.ViewModels
         }
         public void Quit()
         {
-            App.Current.Exit();
+            mainWindow.Close();
         }
 
         public async Task Generate()
@@ -70,7 +70,7 @@ namespace AvaloniaApplication1.ViewModels
 
             if (string.IsNullOrWhiteSpace(filename))
                 return;
-                        
+
             var generator = new WordFormReportGenerator();
             var stream = generator.GenerateDocument("Template1", meetingNotes);
 

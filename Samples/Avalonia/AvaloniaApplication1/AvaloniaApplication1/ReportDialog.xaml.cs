@@ -8,15 +8,17 @@ namespace AvaloniaApplication1
 {
     public class ReportDialog : Window
     {
-        private ReportDialogViewModel viewModel;
-        public ReportDialog(MeetingNotes meetingNotes)
+        public ReportDialog(MeetingNotes meetingNotes) : this()
+        {
+            DataContext = new ReportDialogViewModel(this, meetingNotes);
+        }
+
+        public ReportDialog()
         {
             this.InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            viewModel = new ReportDialogViewModel(this, meetingNotes);
-            DataContext = viewModel;
         }
 
         private void InitializeComponent()

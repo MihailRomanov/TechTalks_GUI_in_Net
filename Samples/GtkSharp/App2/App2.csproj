@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -15,8 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="formgenerator" Version="1.0.0" />
-    <PackageReference Include="GtkSharp" Version="3.22.25.24" />
+    <PackageReference Include="GtkSharp" Version="3.22.25.128" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\formgenerator\formgenerator\formgenerator.csproj" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,5 @@
-﻿using Avalonia.Diagnostics.ViewModels;
-using FormGenerator.Models;
+﻿using FormGenerator.Models;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace AvaloniaApplication1.ViewModels
 {
-    public class ReportDialogViewModel : ViewModelBase
+    public class ReportDialogViewModel : ReactiveObject
     {
         private string subject;
         private DateTime date;
@@ -20,23 +20,23 @@ namespace AvaloniaApplication1.ViewModels
             set
             {
                 subject = value;
-                RaisePropertyChanged(nameof(Subject));
+                this.RaisePropertyChanged(nameof(Subject));
             }
         }
-        public DateTime Date { 
+        public DateTime Date {
             get => date;
             set
             {
                 date = value;
-                RaisePropertyChanged(nameof(Date));
+                this.RaisePropertyChanged(nameof(Date));
             }
         }
-        public string Secretary { 
+        public string Secretary {
             get => secretary;
-            set 
+            set
             {
                 secretary = value;
-                RaisePropertyChanged(nameof(Secretary));
+                this.RaisePropertyChanged(nameof(Secretary));
             }
         }
         public ObservableCollection<ParticipantViewModel> Participants { get; }
@@ -55,7 +55,7 @@ namespace AvaloniaApplication1.ViewModels
             this.reportDialog = reportDialog;
         }
 
-        public void AddParticipant() 
+        public void AddParticipant()
         {
             Participants.Add(new ParticipantViewModel(new Participant { Name = "Participant" }));
         }
@@ -82,22 +82,22 @@ namespace AvaloniaApplication1.ViewModels
                 Subject = this.Subject,
                 Secretary = this.Secretary,
                 Date = this.Date,
-                Decisions = new List<Decision>(this.Decisions.Select(d => new Decision 
-                { 
+                Decisions = new List<Decision>(this.Decisions.Select(d => new Decision
+                {
                     Solution = d.Solution,
                     Responsible = d.Responsible,
                     Problem = d.Problem,
                     ControlDate = d.ControlDate
                 })),
-                Participants = new List<Participant>(this.Participants.Select(p => new Participant 
-                { 
+                Participants = new List<Participant>(this.Participants.Select(p => new Participant
+                {
                     Name = p.Name
                 }))
             };
         }
     }
 
-    public class DecisionViewModel : ViewModelBase
+    public class DecisionViewModel : ReactiveObject
     {
         private string problem;
         private string solution;
@@ -112,49 +112,49 @@ namespace AvaloniaApplication1.ViewModels
             ControlDate = decision.ControlDate;
         }
 
-        public string Problem { 
+        public string Problem {
             get => problem;
-            set 
+            set
             {
-                if (problem == value) 
+                if (problem == value)
                     return;
                 problem = value;
-                RaisePropertyChanged(nameof(Problem));
+                this.RaisePropertyChanged(nameof(Problem));
             }
         }
-        public string Solution { 
+        public string Solution {
             get => solution;
-            set 
+            set
             {
                 if (solution == value)
                     return;
                 solution = value;
-                RaisePropertyChanged(nameof(Solution));
-            } 
-        }
-        public string Responsible { 
-            get => responsible;
-            set 
-            {
-                if (responsible == value)
-                    return; 
-                responsible = value;
-                RaisePropertyChanged(nameof(Responsible));
+                this.RaisePropertyChanged(nameof(Solution));
             }
         }
-        public DateTime ControlDate { 
+        public string Responsible {
+            get => responsible;
+            set
+            {
+                if (responsible == value)
+                    return;
+                responsible = value;
+                this.RaisePropertyChanged(nameof(Responsible));
+            }
+        }
+        public DateTime ControlDate {
             get => controlDate;
-            set 
+            set
             {
                 if (controlDate == value)
                     return;
                 controlDate = value;
-                RaisePropertyChanged(nameof(ControlDate));
+                this.RaisePropertyChanged(nameof(ControlDate));
             }
         }
     }
 
-    public class ParticipantViewModel : ViewModelBase
+    public class ParticipantViewModel : ReactiveObject
     {
         private string name;
 
@@ -162,17 +162,17 @@ namespace AvaloniaApplication1.ViewModels
         {
             Name = participant.Name;
         }
-        
-        public string Name 
-        { 
+
+        public string Name
+        {
             get => name;
-            set 
+            set
             {
                 if (name == value)
                     return;
                 name = value;
-                RaisePropertyChanged(nameof(Name));
-            } 
+                this.RaisePropertyChanged(nameof(Name));
+            }
         }
     }
 }

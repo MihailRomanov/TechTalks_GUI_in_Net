@@ -14,7 +14,7 @@
       </TableRow>
       <TableRow>
         <Label Text="Date" TextAlignment="Right"/>
-        <DateTimePicker Value="{Binding Path='Date'}"/>
+        <DateTimePicker Value="{Binding Path='Date'}" Mode="Date" />
       </TableRow>
       <TableRow>
         <Label Text="Secretary" TextAlignment="Right"/>
